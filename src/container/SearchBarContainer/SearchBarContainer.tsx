@@ -1,33 +1,26 @@
 import React from 'react'
 import './style.scss'
-import SearchIcon from './../../images/searchIconSmall.png'
+import SearchIcon from './../../images/searchIconSmall2.png'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 
 const SearchBarContainer = () => {
   return (
-    <div>
+    <div id='searchBarContainerStyle'>
         <h1 id='searchBarTextTitleStyle'>Country search</h1>
         <p id='searchBarTextStyle'>Le some random text</p>
 
-        <div id='formStyleContainer'>
-            <form action="" id='searchContainer'>
-                {/* <div id='searchContainer'> */}
-                {/* <label> mete el numero  */}
-                    <img src={SearchIcon} className='searchComponents'/>
-                    <input type="text" id='searchComponentInput' placeholder='Chile esta creciendo' className='searchComponents' />
-                {/* </label> */}
-
-                {/* </div> */}
-            </form>
-        </div>
+        <form action="" id='searchContainer'>
+            <img src={SearchIcon} className='searchComponents'/>
+            <input type="text" id='searchComponentInput' placeholder='Chile esta creciendo' className='searchComponents' />
+        </form>
 
         <div id='groupContainer'>
-            <h1>Group By:</h1>
+            <h1 id='buttonSelectionText'>Group by:</h1>
 
-            <ButtonComponent text={'Continent'}/>
-            <ButtonComponent text={'Language'}/>
-
-
+            <div id='buttonSelectionContainer'>
+                <ButtonComponent text={'Continent'}/>
+                <ButtonComponent text={'Language'}/>
+            </div>
         </div>
 
     </div>

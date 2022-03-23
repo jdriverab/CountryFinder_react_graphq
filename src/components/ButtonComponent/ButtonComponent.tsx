@@ -1,4 +1,5 @@
 import React from 'react'
+import './style.scss'
 
 interface ButtonComponentProps {
   text:string
@@ -7,10 +8,12 @@ interface ButtonComponentProps {
 
 const ButtonComponent = ({text}:ButtonComponentProps) => {
   return (
-    <button>
-      <h2>
+    // <button id='buttonStyle'>
+    <button className="button-15" role="button">
+
+      {/* <h2 id='buttonText'> */}
         {text}
-      </h2>
+      {/* </h2> */}
     </button>
   )
 }
