@@ -1,0 +1,55 @@
+@import "../../theme/generalStyle.scss";
+
+#formStyleContainer{
+    width: 90%;
+}
+
+/* #formStyle{
+    /* align-content: center; 
+} */
+
+#searchContainer{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    border-width: 2px;
+    border-radius: 20px;
+    border-style: solid;
+    width: 100%;
+    background-color: $searchBar-background-color;
+
+}
+
+.searchComponents{
+    /* width: 20px; */
+    height: 20px;
+    padding:5px
+}
+
+#searchComponentInput{
+    margin: 0 0 0 50px;
+    background-color: #dfd9d9a2;
+    width: 100%;
+    border:none;
+    outline-width: 0;
+    border-radius: 20px;
+
+}
+
+#groupContainer{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#searchBarTextTitleStyle{
+    color: $main-color;
+    font-family: $main-fontfamily;
+    font-size: $main-fontsize;
+}
+
+#searchBarTextStyle{
+    color: $main-color;
+    font-family: $main-fontfamily;
+    font-size: $secondary-fontsize;
+}
