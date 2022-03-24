@@ -1,0 +1,42 @@
+@import "../../theme/generalStyle.scss";
+
+#mainContainerShowComponent{
+    width: 320px;
+    height: 250px;
+    margin:12px 24px 12px 0;
+}
+
+#showComponentCard{
+    width: inherit;
+    height: 160px;
+    border: 2px solid black;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+}
+
+
+#showComponentTitle{
+    color: $main-color;
+    font-family: $main-fontfamily;
+    font-size: $medium-fontsize;
+    margin:0 0 15px 0;
+    padding: 0;
+}
+
+#showComponentTextCountryName{
+    margin:0;
+    padding: 0;
+    color: $main-color;
+    font-family: $main-fontfamily;
+    font-size: $medium-fontsize;
+}
+
+#showComponentTextCountryBody{
+    margin:13px 0 0 0;
+    padding: 0;
+    color: $secondary-color;
+    font-family: $main-fontfamily;
+    font-size: $small-fontsize;
+    font-weight: bold;
+}

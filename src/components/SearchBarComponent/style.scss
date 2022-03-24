@@ -1,0 +1,28 @@
+@import "../../theme/generalStyle.scss";
+
+
+#searchContainer{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    border:2px solid $searchBar-border-color;
+    border-radius: 20px;
+    background-color: $searchBar-background-color;
+
+    .searchComponents{
+        height: 20px;
+        padding:5px 5px 5px 10px;
+    }
+
+    #searchComponentInput{
+        font-family: $main-fontfamily;
+        color: $tertiary-color;
+        font-weight: bold;
+        margin: 0 0 0 6%;
+        background-color: $searchBar-input-background-color;
+        width: 100%;
+        border: 0;
+        outline-width: 0;
+        border-radius: 20px;
+    }
+}
