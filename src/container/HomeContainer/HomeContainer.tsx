@@ -1,5 +1,6 @@
 import React from 'react'
-import SearchBarContainer from '../SearchBarContainer/SearchBarContainer'
+import CountrySearchContainer from '../CountrySearchContainer/CountrySearchContainer'
+import ShowCountryContainer from '../ShowCountryContainer/ShowCountryContainer'
 import './style.scss'
 
 const HomeContainer = () => {
@@ -7,10 +8,9 @@ const HomeContainer = () => {
     <main id='mainContainer'>
 
       <div id='mainContainerCentralSection'>
+        <CountrySearchContainer/> 
         
-        <SearchBarContainer/> 
-        
-
+        <ShowCountryContainer/>
       </div>
 
     </main>

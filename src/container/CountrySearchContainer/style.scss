@@ -1,0 +1,124 @@
+@import "../../theme/generalStyle.scss";
+
+
+@media only screen and (max-width:800px){
+
+    #buttonSelectionContainer2{
+        display: flex;
+
+        transform: translateX();
+        width: 100%;
+        flex-flow: row wrap;
+        // padding:10px;
+        // justify-items: space-between;
+        justify-content: space-between;
+        // // justify-content: flex-end;
+
+        // align-items: space-between;
+        // align-content: space-between;
+        // align-self: center;
+        padding-left: 35px;
+    }
+}
+
+@media only screen and (min-width:800px) and  (max-width:1300px){
+
+    #buttonSelectionContainer2{
+        display: flex;
+        width: 80%;
+        flex-flow: row wrap;
+        // padding:10px;
+        // justify-items: space-between;
+        justify-content: space-between;
+        // // justify-content: flex-end;
+
+        // align-items: space-between;
+        // align-content: space-between;
+        // // align-self: center;
+    }
+    
+}
+
+@media only screen and (min-width:1300px){
+
+    #buttonSelectionContainer2{
+        display: flex;
+        width: 60%;
+        flex-flow: row wrap;
+        // justify-items: space-between;
+        justify-content: space-between;
+        // justify-content: flex-end;
+
+        // align-items: space-between;
+        // align-content: center;
+        // align-self: center;
+    }
+}
+
+    #CountrySearchContainerStyle{
+        display: flex;
+        flex-flow: column nowrap;
+
+        #CountrySearchContainerTextTitleStyle{
+            color: $main-color;
+            font-family: $main-fontfamily;
+            font-size: $large-fontsize;
+            margin: 5% 0 20px 0;
+            font-weight: bold;
+        }
+        
+        #CountrySearchContainerTextStyle{
+            color: $secondary-color;
+            font-family: $main-fontfamily;
+            font-size: $small-fontsize;
+            font-weight: bold;
+            margin: 0 0 25px 0;
+        }
+
+    #groupContainer{
+        display: flex;
+        flex-flow: row nowrap;
+        height: auto;
+        width: 100%;
+        margin: 20px 0 0 0;
+        // align-items: center;
+        
+        #buttonSelectionText{
+            display: flex;
+            width: 25%;
+
+            color: $main-color;
+            font-family: $main-fontfamily;
+            font-size: $medium-fontsize;
+        }
+
+        #buttonSelectionContainer{
+            display: flex;
+            width: 75%;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        // #buttonSelectionContainer2{
+        //     display: flex;
+        //     width: 60%;
+        //     flex-flow: row wrap;
+        //     // justify-items: space-between;
+        //     justify-content: space-between;
+        //     // justify-content: flex-end;
+
+        //     // align-items: space-between;
+        //     // align-content: center;
+        //     // align-self: center;
+        // }
+    }
+}
+
+
+
+
+
+
+
+
+
