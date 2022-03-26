@@ -1,47 +1,70 @@
-import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
-import {ApolloClient, InMemoryCache, gql, useQuery} from '@apollo/client';
+import React, { Fragment, useEffect } from 'react';
+import { useQuery, gql } from '@apollo/client';
+import './../container/CountrySearchContainer/style.scss'
 
-// initialize a GraphQL client
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  uri: 'https://countries.trevorblades.com'
-});
 
-// write a GraphQL query that asks for names and codes for all countries
-const LIST_COUNTRIES = gql`
-  {
-    countries {
+interface Country {
+  name: string;
+  code: string;
+  capital: string;
+  continent: {
+    name: string;
+  };
+}
+
+export interface CountryData {
+  countries: Country[];
+}
+
+interface CountryVariable {
+  code: string;
+}
+
+const COUNTRIES_QUERY = gql`
+  query Counties($code: String) {
+    countries(filter: { continent: { eq: $code } }) {
       name
       code
-      languages{
-          code
+      capital
+      continent {
+        name
       }
     }
   }
 `;
 
-// create a component that renders a select input for coutries
-export function CountrySelect() {
-  const [country, setCountry] = useState('US');
-  const {data, loading, error} = useQuery(LIST_COUNTRIES, {client});
+const CountryList = () => {
+  const continentCode = 'EU';
+  const { data, loading } = useQuery<CountryData, CountryVariable>(COUNTRIES_QUERY, {
+    variables: {
+      code: continentCode,
+    },
+  });
 
-  console.log(country)
-  console.log(data)
+  if (loading) return <p>Loading...</p>;
+  const countries = data?.countries;
 
-  if (loading || error) {
-    return <p>{error ? error.message : 'Loading...'}</p>;
-  }
+  console.log(RegExp('Chil'))
+
+  
 
   return (
-    <select value={country} onChange={event => setCountry(event.target.value)}>
-      {data.countries.map((country:any) => (
-        <option key={country.code} value={country.code}>
-          {country.name}
-        </option>
+    <>
+      {countries && countries.map((c:any, i:any) => (
+        <div key={i}>
+          <h1 id='CountrySearchContainerTextStyle'>
+            {c.name}
+          </h1>
+          <p>
+          {c.capital} 
+          </p>
+          <p>
+            {c.continent.name}
+          </p>
+        </div>
       ))}
-    </select>
+    </>
   );
-}
+};
 
-ReactDOM.render(<CountrySelect />, document.getElementById('root'));
+export default CountryList;

@@ -1,30 +1,50 @@
 import React from 'react'
+import { countriesReturnProps, dataToShowReturnProps } from '../../context/AppContext'
 import './style.scss'
 
 
-interface GroupComponentProps {
-  title:string,
-  country: string, 
-  countryText: string,
-}
+// interface GroupComponentProps {
+//   title:string,
+//   countries: countriesReturnProps[], 
+// }
 
-const ShowCountryComponent = ({title, country, countryText}:GroupComponentProps) => {
+
+const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
 
   return (
     <div id='mainContainerShowComponent'>
+      
       <h1 id='showComponentTitle'>
         {title}
       </h1>
 
-        <div id='showComponentCard'>
-          <h3 id='showComponentTextCountryName'>
-            {country}
-          </h3>
-          <p id='showComponentTextCountryBody'>
-            {countryText}
-          </p>
+    <div id='containerComponentCard'>
+      {
+        countries.map((response:countriesReturnProps)=>{
+          return (
+            <div id='showComponentCard'>
 
-      </div>
+              <div id='showComponentTitle'>
+
+                <h3 id='showComponentTextCountryEmoji'>
+                  {response.emoji}
+                </h3>
+                <h3 id='showComponentTextCountryName'>
+                  { response.countryName}
+                </h3>
+              </div>
+              <p id='showComponentTextCountryBody'>
+                The capital of the country is { response.capital}
+              </p>
+
+            </div>
+          )
+        })
+      }
+
+
+    </div>
+
     </div>
   )
 }

@@ -1,18 +1,32 @@
 @import "../../theme/generalStyle.scss";
 
 #mainContainerShowComponent{
-    width: 320px;
-    height: 250px;
+    width: '100%';
+    height: auto;
     margin:12px 24px 12px 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#containerComponentCard{
+    display: flex;
+    flex-flow: row wrap;
 }
 
 #showComponentCard{
-    width: inherit;
+    // display: flex;
+    // flex-flow: row nowrap;
+    width: 260px;
     height: 160px;
     border: 2px solid black;
     background-color: white;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
+}
+
+#showComponentTitle{
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 
@@ -22,6 +36,14 @@
     font-size: $medium-fontsize;
     margin:0 0 15px 0;
     padding: 0;
+}
+
+#showComponentTextCountryEmoji{
+    margin:0;
+    padding: 0;
+    color: $main-color;
+    font-family: $main-fontfamily;
+    font-size: $medium-fontsize;
 }
 
 #showComponentTextCountryName{
