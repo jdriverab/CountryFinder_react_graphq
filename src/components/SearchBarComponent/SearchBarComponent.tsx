@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useContext, useRef } from 'react'
+import { APPCONTEXT } from '../../context/AppContext'
 import SearchIcon from './../../images/searchIconSmall2.png'
 import './style.scss'
 
 
 const SearchBarComponent = () => {
+
+  const {dispatch} = useContext(APPCONTEXT)
+
   return (
-    <form action="" id='searchContainer'>
+    <form action="" id='searchContainer'  onChange={(response:any)=>{
+      dispatch({type:'setCountry', payload:({country: response.target.value})})
+
+    }}>
         <img src={SearchIcon} className='searchComponents'/>
-        <input type="text" id='searchComponentInput' placeholder='Chile esta creciendo' className='searchComponents' />
+        <input type="text" id='searchComponentInput' placeholder='Write your favorite country here' className='searchComponents' />
     </form>
   )
 }

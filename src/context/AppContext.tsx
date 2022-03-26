@@ -1,29 +1,23 @@
-import React, { createContext, useMemo, useReducer,  } from 'react'
+import React, { createContext, useMemo, useReducer, useState,  } from 'react'
 import {AppReducer, ActionReducerProps} from './AppReducer'
 import  { ContinentsProps, Country, CountryData, LanguageAndcontinentProps } from '../Hooks/UseQueryHook';
 
   export const appInitialState: AppState = {
     country: '',
     groupedBy: undefined,
+    dataToShow: null,
   }
 
   export interface AppState {
     country: string,
     groupedBy: 'Language' | 'Continent' | undefined;
-  }
+    dataToShow: dataToShowReturnProps[] | null,
 
-  // export interface Country {
-  //   name: string;
-  //   code: string;
-  //   capital: string;
-  //   continent: {
-  //     name: string;
-  //   };
-  // }
+  }
   
-  // export interface CountryData {
-  //   countries: Country[];
-  // }
+  interface infoForComponentsProps {
+    dataByContinents: dataToShowReturnProps[]
+  }
 
   export interface dataToShowReturnProps {
     title: string;
@@ -38,45 +32,46 @@ import  { ContinentsProps, Country, CountryData, LanguageAndcontinentProps } fro
 
   export interface dataPer {
     title: string;
-    countries: countriesReturnProps[];
+    countries: countriesReturnProps;
+  }
+
+  interface filterInputProps {
+    dataList:dataToShowReturnProps[], 
+    textToFilter:string
   }
 
 export interface AppContextProps {
     state:AppState;
     dispatch: (reducerInfo:ActionReducerProps)=> void;
     isSelectedAGroup: boolean;
-    dataToShow:any;
-    showDataByContinent: (arrayOfCountries:CountryData) => dataToShowReturnProps[]
+    organiceInfoForComponents: (arrayOfCountries:CountryData) => infoForComponentsProps;
+    filterByCountry: ({dataList, textToFilter}:filterInputProps)=> dataToShowReturnProps[];
 }
-
-
 export const APPCONTEXT = createContext( {} as AppContextProps )
 
 export const AppProvider = ({children}:any) => {
 
   const [state, dispatch] = useReducer(AppReducer, appInitialState)
-
-  // const {queryInfo} = UseQueryHook()
-
-  // console.log(state)
   
-  // const getQueryGDLForGroup = useMemo((groupSelected:'Language' | 'Continent' | undefined = state.groupedBy): DocumentNode | undefined => {
-
-  //   switch(groupSelected){
-  //     case 'Language':
-  //       return LIST_COUNTRIES_PER_LENGUAGE
-  //     case 'Continent':
-  //       return LIST_COUNTRIES_PER_CONTINENT
-  //   }
-  // },[state.groupedBy])
-
+  /**
+   * Funcion indica si se eligio una agrupacion de informacion, a partir de esta funcion nace la primera renderizacion de los paises.
+   * @param {string} groupSelected es un string que indica como quieren que se agrupen los datos, por defecto llega del estado 
+   * @returns {boolean} retorna valor booleano, esta funcion es la que permite la renderizacion de los componentes cuando se eligen en los botones.
+   */
   const isSelectedAGroup = useMemo((groupSelected:string | undefined = state.groupedBy): boolean => {
     return groupSelected !== undefined && true
   },[state.groupedBy])
 
-  const showDataByContinent = (arrayOfCountries:CountryData):dataToShowReturnProps[] => {
+  // esta funcion la implemente porque preferi hacer solo 1 llamado a la BD y dejar preparada la info para los filtros posteriores,
+  // asi evitaba tambien muchas llamadas si el usuario elegia filtrar mucho, en todo caso se memoiza para evitar su reprocesamiento posterior
 
-    return arrayOfCountries.continents.map((response:ContinentsProps)=>{
+  /**
+   * Funcion para organizar informacion extraida del grafo
+   * @param {array} arrayOfCountries Es el array extraido del grafo (esta funcion es usada en el HomeContainer)
+   * @returns retorna un objeto con los listados de paises agrupados.
+   */
+  const organiceInfoForComponents = useMemo(()=>(arrayOfCountries:CountryData):infoForComponentsProps => {
+    const dataByContinents = arrayOfCountries.continents.map((response:ContinentsProps)=>{
       return {
         title: response.name,
         countries: response.countries.map((res:Country)=>{
@@ -88,166 +83,65 @@ export const AppProvider = ({children}:any) => {
         })
       }
     }) 
-  }
+
+    return {dataByContinents: dataByContinents}
+  },[])
 
   const showDataByLanguage = (arrayOfCountries:CountryData):any | null => {
 
     if(!arrayOfCountries){ return null }  
 
-    const arrayOfData =  arrayOfCountries.continents
-        .map((response:ContinentsProps)=>{
-          return response.countries.map((respon:Country)=>{
-            return {
-              capital: respon.capital,
-              name: respon.capital,
-              continent: respon.continent.name,
-              emoji: respon.emoji,
-              languages: respon.languages.map((res:LanguageAndcontinentProps)=>{
-                return res.name
-              })
-            }
+    const arrayOfData =  arrayOfCountries.continents.map((response:ContinentsProps)=>{
+      return response.countries.map((respon:Country)=>{
+        return {
+          capital: respon.capital,
+          name: respon.name,
+          continent: respon.continent.name,
+          emoji: respon.emoji,
+          languages: respon.languages.map((res:LanguageAndcontinentProps)=>{
+            return res.name
           })
-        }).flat()
-    
+        }
+      })
+    }).flat()
+
   }
 
+  /**
+   * Funcion para filtrar el listado de paises segun el texto a ingresar.
+   * @param {array} dataList array con listado de paises a filtrar segun el input en el SearchBarComponent
+   * @param {string} textToFilter es el texto de interes, por lo general se toma del input del SearchBar 
+   * @returns retorna el array de paises organizado por categoria ingresada
+   */
+  const filterByCountry = ({dataList, textToFilter}:filterInputProps): dataToShowReturnProps[] => {
 
-  const dataToShow = (arrayOfCountries:CountryData, groupedBy:'Language' | 'Continent'):dataToShowReturnProps[] | null => {
+    return dataList.reduce((accumulator:any, currentObj:dataToShowReturnProps) => {
+      let output:any = {}
+      const transformedSearchQuery = textToFilter.toLowerCase()
+      const currentTitle = currentObj.title
+      const currentData = currentObj.countries
+
+      const filteredData = currentData.filter((item:countriesReturnProps) => {
+        const transformedItem = item.countryName.toLowerCase()
+        return transformedItem.includes(transformedSearchQuery)
+      })
+
+      if (filteredData.length) {
+        output.title = currentTitle
+        output.countries = filteredData
+      }
+
+      if (Object.entries(output).length) {
+        return [...accumulator, output]
+      } else {
+        return accumulator
+      }
+    }, [])
     
-    if(!arrayOfCountries){ return null }  
-      
-    switch (groupedBy){
-      case 'Continent':
-        return arrayOfCountries.continents.map((response:ContinentsProps)=>{
-          return {
-            title: response.name,
-            countries: response.countries.map((res:Country)=>{
-              return {
-                countryName: res.name,
-                capital: res.capital,
-                emoji: res.emoji,
-              }
-            })
-          }
-        })
-
-      case 'Language':
-
-        const arrayOfData =  arrayOfCountries.continents
-        .map((response:ContinentsProps)=>{
-          return response.countries.map((respon:Country)=>{
-            return {
-              capital: respon.capital,
-              name: respon.capital,
-              continent: respon.continent.name,
-              emoji: respon.emoji,
-              languages: respon.languages.map((res:LanguageAndcontinentProps)=>{
-                return res.name
-              })
-            }
-          })
-        }).flat()
-          
-        
-        
-        // console.log(
-          
-        //   arrayOfData().map((respo:Country)=>{
-        //     return {info: respo,
-        //       lenguage: respo.languages.map((res:LanguageAndcontinentProps)=>{
-        //         return res.name
-        //       })
-        //     }
-        //   })
-        // // .map((res:LanguageAndcontinentProps)=>{
-        // //   return res.name
-        // // })
-        
-        // )
-
-        console.log(arrayOfData)
-
-        const prueba = 
-
-          arrayOfData.map((response:any)=>{
-          })
-
-
-
-            // .map((response:Country)=>{
-            //   return {
-            //     info: response,
-            //     languages: response.languages.map((respon:LanguageAndcontinentProps)=>{
-            //       return respon.name
-            //     })
-            //   }
-            // })
-            // .flat().map((res:LanguageAndcontinentProps)=>{
-            //   return res.name
-            // })
-          // .map((res:LanguageAndcontinentProps)=>{
-          //   return res.name
-          // })
-        
-        
-        // .map((re:string)=>{
-        //   return {
-        //     title: re, //ojo re es el nombre del lenguaje
-        //     countries: arrayOfData().filter((r:Country)=>{
-        //       // console.log(r)
-
-        //     })
-        //   }
-        // })
-
-        // console.log(arrayOfData())
-        
-        // //Aqui va bien la funcion
-        // .map((response:string)=>{
-
-        //   return {
-        //     title: response,
-        //     countries: {
-              
-        //     }
-        //   }
-
-        // })
-        
-
-//-----------
-
-        // .map((r: string)=>{
-        //   return {
-        //     title: 
-        //   }
-        // })
-  
-        console.log(prueba)
-        // console.log(new Set(prueba))
-
-        // const nuevaOrganizacion = arrayOfCountries.continents.map((response:ContinentsProps)=>{
-          
-        //   return response.countries.map((res:Country)=>{
-        //     return res.language
-        //     // console.log(res)
-        //     // return res.language.forEach((r:LanguageAndcontinentProps)=>{
-        //     //   return r.name
-        //     // })
-        //   })
-        // })
-        
-
-        // console.log(nuevaOrganizacion)
-
-        return null
-
-    }
-
   }
 
   return (
-    <APPCONTEXT.Provider value={{state, dispatch, isSelectedAGroup, dataToShow, showDataByContinent}}>
+    <APPCONTEXT.Provider value={{state, dispatch, isSelectedAGroup, organiceInfoForComponents, filterByCountry}}>
       {children}
     </APPCONTEXT.Provider>
   )

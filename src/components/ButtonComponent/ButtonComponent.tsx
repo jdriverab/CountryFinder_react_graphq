@@ -7,15 +7,15 @@ interface ButtonComponentProps {
 }
 
 const ButtonComponent = ({text}:ButtonComponentProps) => {
-  const {dispatch, isSelectedAGroup} = useContext(APPCONTEXT)
+
+  const {dispatch} = useContext(APPCONTEXT)
 
   return (
 
-    <button id='buttonStyle' role="button" onClick={()=>dispatch({type:'setGroupBy', payload:{groupBy: text}})}>
-    {/* <button className="button-15" role="button"> */}
-      {/* <h2 id='buttonText'> */}
+    <button id='buttonStyle' role="button" onClick={()=> {
+        dispatch({type:'setGroupBy', payload:{groupBy: text}})
+      }}>
         {text}
-      {/* </h2> */}
     </button>
   )
 }

@@ -1,13 +1,7 @@
 import React from 'react'
 import { countriesReturnProps, dataToShowReturnProps } from '../../context/AppContext'
+import CardComponent from '../CardComponent/CardComponent'
 import './style.scss'
-
-
-// interface GroupComponentProps {
-//   title:string,
-//   countries: countriesReturnProps[], 
-// }
-
 
 const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
 
@@ -22,22 +16,7 @@ const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
       {
         countries.map((response:countriesReturnProps)=>{
           return (
-            <div id='showComponentCard'>
-
-              <div id='showComponentTitle'>
-
-                <h3 id='showComponentTextCountryEmoji'>
-                  {response.emoji}
-                </h3>
-                <h3 id='showComponentTextCountryName'>
-                  { response.countryName}
-                </h3>
-              </div>
-              <p id='showComponentTextCountryBody'>
-                The capital of the country is { response.capital}
-              </p>
-
-            </div>
+            <CardComponent dataForCard={response} key={response.countryName}/>
           )
         })
       }
