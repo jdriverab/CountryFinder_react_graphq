@@ -12,17 +12,16 @@ const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
         {title}
       </h1>
 
-    <div id='containerComponentCard'>
-      {
-        countries.map((response:countriesReturnProps)=>{
-          return (
-            <CardComponent dataForCard={response} key={response.countryName}/>
-          )
-        })
-      }
+      <div id='containerComponentCard'>
+        {
+          countries.map((response:countriesReturnProps)=>{
+            return (
+              <CardComponent dataForCard={response} key={response.countryName}/>
+            )
+          })
+        }
 
-
-    </div>
+      </div>
 
     </div>
   )

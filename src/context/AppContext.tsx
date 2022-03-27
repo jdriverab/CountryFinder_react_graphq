@@ -1,6 +1,6 @@
-import React, { createContext, useMemo, useReducer, useState,  } from 'react'
+import React, { createContext, useMemo, useReducer} from 'react'
 import {AppReducer, ActionReducerProps} from './AppReducer'
-import  { ContinentsProps, Country, CountryData, LanguageAndcontinentProps } from '../Hooks/UseQueryHook';
+import  { ContinentsProps, CountryProps, CountryDataProps, LanguageAndcontinentProps } from '../Hooks/UseQueryHook';
 
   export const appInitialState: AppState = {
     country: '',
@@ -11,12 +11,13 @@ import  { ContinentsProps, Country, CountryData, LanguageAndcontinentProps } fro
   export interface AppState {
     country: string,
     groupedBy: 'Language' | 'Continent' | undefined;
-    dataToShow: dataToShowReturnProps[] | null,
+    dataToShow: dataToShowReturnProps[] | null;
 
   }
   
   interface infoForComponentsProps {
-    dataByContinents: dataToShowReturnProps[]
+    dataByContinents: dataToShowReturnProps[];
+    dataByLanguage: dataToShowReturnProps[];
   }
 
   export interface dataToShowReturnProps {
@@ -28,25 +29,22 @@ import  { ContinentsProps, Country, CountryData, LanguageAndcontinentProps } fro
     countryName: string;
     capital: string | null;
     emoji: string;
-  }
-
-  export interface dataPer {
-    title: string;
-    countries: countriesReturnProps;
+    languages: string[];
   }
 
   interface filterInputProps {
-    dataList:dataToShowReturnProps[], 
-    textToFilter:string
+    dataList:dataToShowReturnProps[];
+    textToFilter:string;
   }
 
 export interface AppContextProps {
     state:AppState;
     dispatch: (reducerInfo:ActionReducerProps)=> void;
     isSelectedAGroup: boolean;
-    organiceInfoForComponents: (arrayOfCountries:CountryData) => infoForComponentsProps;
+    organiceInfoForComponents: (arrayOfCountries:CountryDataProps) => infoForComponentsProps;
     filterByCountry: ({dataList, textToFilter}:filterInputProps)=> dataToShowReturnProps[];
 }
+
 export const APPCONTEXT = createContext( {} as AppContextProps )
 
 export const AppProvider = ({children}:any) => {
@@ -70,43 +68,55 @@ export const AppProvider = ({children}:any) => {
    * @param {array} arrayOfCountries Es el array extraido del grafo (esta funcion es usada en el HomeContainer)
    * @returns retorna un objeto con los listados de paises agrupados.
    */
-  const organiceInfoForComponents = useMemo(()=>(arrayOfCountries:CountryData):infoForComponentsProps => {
+  const organiceInfoForComponents = useMemo(()=>(arrayOfCountries:CountryDataProps):infoForComponentsProps => {
     const dataByContinents = arrayOfCountries.continents.map((response:ContinentsProps)=>{
       return {
         title: response.name,
-        countries: response.countries.map((res:Country)=>{
+        countries: response.countries.map((res:CountryProps)=>{
           return {
             countryName: res.name,
             capital: res.capital,
             emoji: res.emoji,
+            languages: res.languages.map((r:LanguageAndcontinentProps)=>{
+              return r.name
+            })
           }
         })
       }
     }) 
 
-    return {dataByContinents: dataByContinents}
+    const dataByLanguages = getAllLenguages(arrayOfCountries).map((response: string)=>{
+      return {
+        title:response,
+        countries: dataByContinents.map((respon:dataToShowReturnProps)=>{
+          return respon.countries.map((resp:countriesReturnProps)=>{
+              return resp
+          })
+        }).flat(2)
+        .filter((res:countriesReturnProps)=>{
+          return res.languages.includes(response)
+        })
+      }
+    })
+    return {dataByContinents: dataByContinents, dataByLanguage:dataByLanguages }
   },[])
 
-  const showDataByLanguage = (arrayOfCountries:CountryData):any | null => {
 
-    if(!arrayOfCountries){ return null }  
-
-    const arrayOfData =  arrayOfCountries.continents.map((response:ContinentsProps)=>{
-      return response.countries.map((respon:Country)=>{
-        return {
-          capital: respon.capital,
-          name: respon.name,
-          continent: respon.continent.name,
-          emoji: respon.emoji,
-          languages: respon.languages.map((res:LanguageAndcontinentProps)=>{
-            return res.name
-          })
-        }
+/**
+   * Funcion para extraer todos los lenguajes de la informacion traida del grafo.
+   * @param {array} arrayOfCountries Es el array extraido del grafo (esta funcion es usada en el HomeContainer)
+   * @returns retorna un array con todos los idiomas sin duplicados.
+   */
+  const getAllLenguages = (arrayOfCountries:CountryDataProps): string[] => {
+    return  Array.from(new Set(arrayOfCountries.continents.map((response:ContinentsProps)=>{
+      return response.countries.map((respon:CountryProps)=>{
+        return respon.languages.map((res:LanguageAndcontinentProps)=>{
+          return res.name
+        })
       })
-    }).flat()
-
+    }).flat(2)))
   }
-
+  
   /**
    * Funcion para filtrar el listado de paises segun el texto a ingresar.
    * @param {array} dataList array con listado de paises a filtrar segun el input en el SearchBarComponent

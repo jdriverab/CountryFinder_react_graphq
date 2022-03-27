@@ -1,14 +1,15 @@
 @import "../../theme/generalStyle.scss";
 
 #showComponentCard{
-    // display: flex;
-    // flex-flow: row nowrap;
-    width: 260px;
-    height: 160px;
+    width: 250px;
+    height: 150px;
     border: 2px solid black;
     background-color: white;
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
+    margin: 10px 10px 10px 10px;
+    
+    
 }
 
 #showComponentTitle{
@@ -23,10 +24,15 @@
     font-size: $medium-fontsize;
     margin:0 0 15px 0;
     padding: 0;
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: flex;
+    align-items: center;
+    // align-content: center;
 }
 
 #showComponentTextCountryEmoji{
-    margin:0;
+    margin:0 15px 0 0;
     padding: 0;
     color: $main-color;
     font-family: $main-fontfamily;
@@ -48,4 +54,19 @@
     font-family: $main-fontfamily;
     font-size: $small-fontsize;
     font-weight: bold;
+}
+
+
+//
+.switch-enter {
+    opacity: 0.01;
+}
+.switch-enter.switch-enter-active {
+    opacity: 1.0;
+}
+.switch-leave {
+    opacity: 1.0;
+}
+.switch-leave.switch-leave-active {
+    opacity: 0;
 }
