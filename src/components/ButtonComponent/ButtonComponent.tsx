@@ -8,13 +8,13 @@ interface ButtonComponentProps {
 
 const ButtonComponent = ({text}:ButtonComponentProps) => {
 
-  const {dispatch} = useContext(APPCONTEXT)
+  const {state, dispatch} = useContext(APPCONTEXT)
 
   return (
 
-    <button id='buttonStyle' role="button" onClick={()=> {
-        dispatch({type:'setGroupBy', payload:{groupBy: text}})
-      }}>
+    <button className={"button-43" }  role="button" id={state.groupedBy == text ? 'button-43-active' :'button-43-nonSelected' } onClick={()=> {
+          dispatch({type:'setGroupBy', payload:{groupBy: text}})
+        }}>
         {text}
     </button>
   )

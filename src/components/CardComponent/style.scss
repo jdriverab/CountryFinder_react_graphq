@@ -36,7 +36,7 @@
     padding: 0;
     color: $main-color;
     font-family: $main-fontfamily;
-    font-size: $medium-fontsize;
+    font-size: 1rem;
 }
 
 #showComponentTextCountryName{
@@ -44,7 +44,7 @@
     padding: 0;
     color: $main-color;
     font-family: $main-fontfamily;
-    font-size: $medium-fontsize;
+    font-size: 26px;
 }
 
 #showComponentTextCountryBody{
@@ -57,16 +57,3 @@
 }
 
 
-//
-.switch-enter {
-    opacity: 0.01;
-}
-.switch-enter.switch-enter-active {
-    opacity: 1.0;
-}
-.switch-leave {
-    opacity: 1.0;
-}
-.switch-leave.switch-leave-active {
-    opacity: 0;
-}

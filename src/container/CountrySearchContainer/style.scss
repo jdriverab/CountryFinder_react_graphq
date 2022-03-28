@@ -27,14 +27,7 @@
         display: flex;
         width: 80%;
         flex-flow: row wrap;
-        // padding:10px;
-        // justify-items: space-between;
         justify-content: space-between;
-        // // justify-content: flex-end;
-
-        // align-items: space-between;
-        // align-content: space-between;
-        // // align-self: center;
     }
     
 }
@@ -45,13 +38,7 @@
         display: flex;
         width: 60%;
         flex-flow: row wrap;
-        // justify-items: space-between;
         justify-content: space-between;
-        // justify-content: flex-end;
-
-        // align-items: space-between;
-        // align-content: center;
-        // align-self: center;
     }
 }
 
@@ -81,12 +68,10 @@
         height: auto;
         width: 100%;
         margin: 20px 0 0 0;
-        // align-items: center;
         
         #buttonSelectionText{
             display: flex;
             width: 25%;
-
             color: $main-color;
             font-family: $main-fontfamily;
             font-size: $medium-fontsize;
@@ -99,18 +84,6 @@
             justify-content: flex-end;
         }
         
-        // #buttonSelectionContainer2{
-        //     display: flex;
-        //     width: 60%;
-        //     flex-flow: row wrap;
-        //     // justify-items: space-between;
-        //     justify-content: space-between;
-        //     // justify-content: flex-end;
-
-        //     // align-items: space-between;
-        //     // align-content: center;
-        //     // align-self: center;
-        // }
     }
 }
 

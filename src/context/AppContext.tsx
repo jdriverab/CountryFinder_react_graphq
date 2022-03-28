@@ -37,6 +37,7 @@ import  { ContinentsProps, CountryProps, CountryDataProps, LanguageAndcontinentP
     textToFilter:string;
   }
 
+  //Esta es la interface para la salida de las variables del context
 export interface AppContextProps {
     state:AppState;
     dispatch: (reducerInfo:ActionReducerProps)=> void;
@@ -48,7 +49,6 @@ export interface AppContextProps {
 export const APPCONTEXT = createContext( {} as AppContextProps )
 
 export const AppProvider = ({children}:any) => {
-
   const [state, dispatch] = useReducer(AppReducer, appInitialState)
   
   /**
@@ -57,7 +57,7 @@ export const AppProvider = ({children}:any) => {
    * @returns {boolean} retorna valor booleano, esta funcion es la que permite la renderizacion de los componentes cuando se eligen en los botones.
    */
   const isSelectedAGroup = useMemo((groupSelected:string | undefined = state.groupedBy): boolean => {
-    return groupSelected !== undefined && true
+    return groupSelected !== undefined ? true : false
   },[state.groupedBy])
 
   // esta funcion la implemente porque preferi hacer solo 1 llamado a la BD y dejar preparada la info para los filtros posteriores,

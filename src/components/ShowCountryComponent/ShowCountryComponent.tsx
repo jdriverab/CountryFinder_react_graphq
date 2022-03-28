@@ -1,9 +1,12 @@
-import React from 'react'
-import { countriesReturnProps, dataToShowReturnProps } from '../../context/AppContext'
+import React, { useContext } from 'react'
+import { CSSTransition } from 'react-transition-group'; 
+import { APPCONTEXT, countriesReturnProps, dataToShowReturnProps } from '../../context/AppContext'
 import CardComponent from '../CardComponent/CardComponent'
 import './style.scss'
 
 const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
+
+  const {isSelectedAGroup} = useContext(APPCONTEXT)
 
   return (
     <div id='mainContainerShowComponent'>
@@ -16,7 +19,17 @@ const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
         {
           countries.map((response:countriesReturnProps)=>{
             return (
-              <CardComponent dataForCard={response} key={response.countryName}/>
+              <CSSTransition
+                in={isSelectedAGroup}
+                // key={response.countryName}
+                timeout={600}
+                classNames='switch'
+              >
+
+                <CardComponent dataForCard={response} key={response.countryName}/>
+
+              </CSSTransition>
+
             )
           })
         }

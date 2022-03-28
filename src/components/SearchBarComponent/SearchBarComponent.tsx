@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { APPCONTEXT } from '../../context/AppContext'
-import SearchIcon from './../../images/searchIconSmall2.png'
+import SearchIcon from './../../images/searchIconSmall3.png'
 import './style.scss'
-
 
 const SearchBarComponent = () => {
 

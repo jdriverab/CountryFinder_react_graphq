@@ -8,7 +8,6 @@ interface dataForCardProps {
 
 const CardComponent = ({dataForCard}: dataForCardProps) => {
   return (
-    // <ReactCSSTransitionGroup transitionName="switch">
 
     <div id='showComponentCard'>
         <div id='showComponentTitle'>
@@ -25,7 +24,6 @@ const CardComponent = ({dataForCard}: dataForCardProps) => {
         </p>
 
     </div>
-    // </ReactCSSTransitionGroup>
   )
 }
 
