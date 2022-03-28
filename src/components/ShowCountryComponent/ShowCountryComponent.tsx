@@ -25,7 +25,7 @@ const ShowCountryComponent = ({title, countries}:dataToShowReturnProps) => {
                 timeout={600}
                 classNames='switch'
               >
-
+                
                 <CardComponent dataForCard={response} key={response.countryName}/>
 
               </CSSTransition>

@@ -39,3 +39,14 @@ Acá van algunas cosas que pueden ser útiles (o no 👀):
 - [Eslint](https://eslint.org/)
 - [Eslint airbnb](https://www.npmjs.com/package/eslint-config-airbnb)
 - [Husky](https://www.npmjs.com/package/husky)
+
+
+## Pregunta 
+
+"La tabla que contiene la información correspondiente a la asistencia diaria de un niño en un colegio tiene 90 millones de filas. Todas las tablas del sistema existen en la misma BDD en MySQL. La lógica del backend que actualiza la información correspondiente al pasar la asistencia tiene un tiempo de servicio p95 de 10 segundos. El equipo está interesado en bajar este tiempo para mejorar la experiencia del usuario (y porque nos gusta pensar en Kimche como un Ferrari). ¿Qué propondrías para enfrentar el problema? Esta pregunta es abierta, no hay respuestas malas. Puedes proponer arquitectura, tecnologías, diseño, etc."
+
+## -----Respuesta-----
+1- Como primera propuesta creo que indicaria lo necesario que es indexar columnas por las que se realicen las busquedas.
+2- Como se indica que actualizala asistencia sobre toda la tabla por lo que propondria dividir las tablas (podria aplicar por fechas), manteniendo la data historica en memoria y asi solo trabajar la data diaria o en un rango ams corto; tambien implicaria que se limpie la tabla a trabajar con los registros ya guardados.
+3- Revisar la query y refactorizar en caso de ser necesario para que busque por los parametros que mas reducen los datos.
+4- Segun investigaba, si existe la posibilidad migrar a postgress que es gratis y mas rapido que sql.
