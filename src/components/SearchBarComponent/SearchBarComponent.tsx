@@ -8,10 +8,12 @@ const SearchBarComponent = () => {
   const {dispatch} = useContext(APPCONTEXT)
 
   return (
-    <form action="" id='searchContainer'  onChange={(response:any)=>{
+    <form action='' id='searchContainer'  onChange={(response:any)=>{
       dispatch({type:'setCountry', payload:({country: response.target.value})})
-
-    }}>
+    }}
+    
+    onSubmit={(event:any)=> event.preventDefault()}
+    >
         <img src={SearchIcon} className='searchComponents'/>
         <input type="text" id='searchComponentInput' placeholder='Find your favorite country here' className='searchComponents' />
     </form>
