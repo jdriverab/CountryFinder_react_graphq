@@ -8,6 +8,7 @@ interface dataForCardProps {
 
 const CardComponent = ({dataForCard}: dataForCardProps) => {
   return (
+
     <div id='showComponentCard'>
         <div id='showComponentTitle'>
 

@@ -1,107 +1,39 @@
 @import "../../theme/generalStyle.scss";
 
-
-#buttonStyle{
-    // align-self: flex-end;
-    // display: flex;
-    // margin: 0;
-    // padding: 0;
-
-    width: 180px;
-    height: 37px;
-    // justify-content: center;
-    // align-items: center;
-
-    display: block;
-    background-image: $searchBar-background-color;
-    border: 2px solid $searchBar-border-color;
-    border-radius: 5px;
-    box-sizing: border-box;
-    color: $main-color;
-    cursor: pointer;
-    font-family: $main-fontfamily;
-    font-size: $small-fontsize;
-    font-weight: bolder;
-    // min-width: 150px;s
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-
-    box-shadow: inset $buttons-shadow 0 -4px 0 0;
-
-    color: $main-color;
-    font-family: $main-fontfamily;
-    font-size: $small-fontsize;
-    
-
-    // #buttonText{
-    //     color: $main-color;
-    //     font-family: $main-fontfamily;
-    //     font-size: $medium-fontsize;
-    //     // justify-content: center;
-    //     // justify-items: center;
-    //     // align-items: center;
-    //     // align-content: center;
-
-    // }    
+#button-43-active{
+  background-image: linear-gradient(-180deg, #0f84b6 0%, #17759C 100%);
 }
 
-// /* CSS */
-// .button-15 {
-//     background-image: $searchBar-background-color;
-//     border: 2px solid $searchBar-border-color;
-//     border-radius: 5px;
-//     box-sizing: border-box;
-//     color: $main-color;
-//     cursor: pointer;
-//     display: block;
-//     font-family: $main-fontfamily;
-//     font-size: $small-fontsize;
-//     font-weight: bolder;
-    
-//     min-width: 50px;
-//     user-select: none;
-//     -webkit-user-select: none;
-//     touch-action: manipulation;
-//     white-space: nowrap;
+#button-43-nonSelected{
+  background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
 
-//     box-shadow: inset $buttons-shadow 0 -4px 0 0;
-//     // direction: ltr;
-//     // font-weight: 400;
-//     // letter-spacing: -.022em;
-//     // line-height: 1.47059;
-//     // overflow: visible;
-//     //   padding: 4px 15px;
-//     // text-align: center;
-//     //   vertical-align: baseline;
+}
 
-// }
-
-// .button-15:disabled {
-//   cursor: default;
-//   opacity: .3;
-// }
-
-#buttonStyle:hover {
-  background-image: linear-gradient(#51A9EE, #147BCD);
-  border-color: $searchBar-border-color;
-  color:white;
+.button-43 {
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-size: $small-fontsize;
+  justify-content: center;
+  padding: 1rem 1.75rem;
   text-decoration: none;
+  width: 180;
+  border: 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-// .button-15:active {
-//     background-image: linear-gradient(#3D94D9, #0067B9);
-//     // background-color: red;
-//     border-color: $searchBar-border-color;
-//     color:white;
-//     outline: none;
-// }
+.button-43:hover {
+  background-image: linear-gradient(-180deg, #0f84b6 0%, #17759C 100%);
+}
 
-#buttonStyle:focus {
-//   box-shadow: rgba(131, 192, 253, 0.5) 0 0 0 3px;
-    background-image: linear-gradient(#51A9EE, #147BCD);;
-    color:white;
-
-     outline: none;
+@media (min-width: 800px) {
+  .button-43 {
+    padding: 1rem 2rem;
+    width: 40%;
+    margin: 10px;
+  }
 }

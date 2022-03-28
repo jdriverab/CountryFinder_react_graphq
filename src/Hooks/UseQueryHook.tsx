@@ -1,17 +1,16 @@
+import React from 'react';
 import { DocumentNode, gql, useQuery } from '@apollo/client';
-import { useMemo, useState } from 'react';
-// import { LIST_COUNTRIES_PER_LENGUAGE } from '../context/gdlQuery';
 
-export interface CountryData {
+export interface CountryDataProps {
     continents: ContinentsProps[]
 }
 
 export interface ContinentsProps {
 name: string;
-countries: Country[];
+countries: CountryProps[];
 }
     
-export interface Country {
+export interface CountryProps {
     name: string;
     capital: string;
     continent: LanguageAndcontinentProps;
@@ -25,7 +24,7 @@ export type LanguageAndcontinentProps = {
 
 const UseQueryHook = () => {
 
-    const LIST_COUNTRIES_PER_LENGUAGE: DocumentNode = gql`
+    const LIST_COUNTRIES: DocumentNode = gql`
     query Continent {
         continents {
           name
@@ -44,7 +43,7 @@ const UseQueryHook = () => {
       }
     `;
 
-    const queryInfo = useQuery<CountryData>(LIST_COUNTRIES_PER_LENGUAGE)
+    const queryInfo = useQuery<CountryDataProps>(LIST_COUNTRIES)
 
     return {
         queryInfo, 

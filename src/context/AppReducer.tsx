@@ -3,7 +3,7 @@ import { AppState } from "./AppContext";
 export type ActionReducerProps = 
     | {type: 'setCountry', payload: PayloadSetCountryProps}
     | {type: 'setGroupBy', payload: PayloadSetGroupByProps}
-    | {type: 'setDataToShow', payload: PayloadSetDataToShow}
+    | {type: 'setDataToShow', payload: PayloadSetDataToShowProps}
 
     type PayloadSetCountryProps = {
         country: string;
@@ -13,7 +13,7 @@ export type ActionReducerProps =
         groupBy: 'Language' | 'Continent' | undefined;
     }
 
-    type PayloadSetDataToShow = {
+    type PayloadSetDataToShowProps = {
         dataToShow: dataToShowReturnProps[],
     }
     
@@ -26,6 +26,7 @@ export type ActionReducerProps =
         countryName: string;
         capital: string | null;
         emoji: string;
+        languages: string[];
       }
 
 export const AppReducer = (state: AppState, action: ActionReducerProps ):AppState => {
@@ -48,7 +49,6 @@ export const AppReducer = (state: AppState, action: ActionReducerProps ):AppStat
             return {
                 ...state,
                 groupedBy: action.payload.groupBy,
-                // dataToShow: action.payload.dataToShow
             }
 
         default: 

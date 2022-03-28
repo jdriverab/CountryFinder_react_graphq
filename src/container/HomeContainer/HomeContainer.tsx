@@ -9,20 +9,15 @@ const HomeContainer = () => {
 
   const {state, dispatch, organiceInfoForComponents,filterByCountry} = useContext(APPCONTEXT)
   const {queryInfo} = UseQueryHook()
-  
+
   useEffect(()=>{
     const data = queryInfo.data
-
+    
     if(data){
       if(state.groupedBy){
-          const arrayWithInfo = organiceInfoForComponents(data).dataByContinents
-          // console.log(const1)
-          // const dataToDispatch = state.groupedBy == 'Continent' ?  organiceInfoForComponents(data) : organiceInfoForComponents(data)
-          const dataFiltered = state.country == '' ? arrayWithInfo : filterByCountry({dataList: arrayWithInfo, textToFilter: state.country})
-          // console.log(dataFiltered)
-
-          dispatch({type:'setDataToShow', payload:{dataToShow: dataFiltered}})
-          // console.log(dataFiltered)
+        const dataToDispatch = state.groupedBy == 'Continent' ?  organiceInfoForComponents(data).dataByContinents : organiceInfoForComponents(data).dataByLanguage
+        const dataFiltered = state.country == '' ? dataToDispatch : filterByCountry({dataList: dataToDispatch, textToFilter: state.country})
+        dispatch({type:'setDataToShow', payload:{dataToShow: dataFiltered}})
       }
     }
 
